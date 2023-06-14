@@ -5,7 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:layout_marginBottom="5dp">
+    android:layout_marginBottom="5dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:background="@drawable/select_date">
 
     <TextView
         android:layout_width="match_parent"
@@ -14,8 +18,9 @@
         android:text="day"
         android:textAlignment="center"
         android:textColor="#3f3f3f"
-        android:textSize="20dp"
-        android:gravity="center_horizontal" />
+        android:textSize="16dp"
+        android:gravity="center"
+        android:layout_gravity="center" />
 
 
 </LinearLayout>
