@@ -1,5 +1,6 @@
 package com.yj510.studyplanner;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -19,10 +20,12 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.viewHo
 
     Context context;
     ArrayList<Date> mData;
+    private onItemSelectedInterface mListenr;
 
-    CalendarAdapter(Context context, ArrayList<Date> data){
+    CalendarAdapter(Context context, ArrayList<Date> data, onItemSelectedInterface listener){
         this.context=context;
         this.mData = data;
+        this.mListenr = listener;
     }
 
     @NonNull
@@ -43,14 +46,20 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.viewHo
                 @Override
                 public void onClick(View v) {
                     int pos = getAdapterPosition() ;
+                    mListenr.onItemSelected(v,mData,pos);
+
                     if (pos != RecyclerView.NO_POSITION) {
                         //Toast.makeText(context, mData.get(pos).date_format,Toast.LENGTH_LONG).show();
 
-                        Intent intent = new Intent(context, MainActivity.class);
-                        intent.putExtra("select_date", mData.get(pos).date_format);
+                        //Intent intent = new Intent(context, MainActivity.class);
+                        //intent.putExtra("select_date", mData.get(pos).date_format);
+                        //context.startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                        //context.startActivity(intent);
+
                     }
                 }
             });
+
         }
     }
 

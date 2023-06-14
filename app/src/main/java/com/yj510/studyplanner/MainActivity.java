@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements onItemSelectedInterface {
 
     private ArrayList<Date> StorageCalendar = new ArrayList<>();
     GregorianCalendar cal; // 현재날짜
@@ -31,6 +31,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         init();
+        Intent intent = getIntent();
+        select_date = intent.getStringExtra("select_date");
+        //Toast.makeText(getApplicationContext(), select_date, Toast.LENGTH_LONG).show();
+
 
     }
 
@@ -55,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
         CalendarSetting(cal);
         RecyclerViewCreate();
 
+
+
     }
 
     // 버튼 이벤트 등록
@@ -70,12 +76,11 @@ public class MainActivity extends AppCompatActivity {
                     cal.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) , cal.get(Calendar.DATE)+7);
                     Log.e(TAG, "다음달");
                     break;
-                case R.id.day_calendar:
+
+                case R.id.btn_write:
                     //Intent intent = new Intent(getApplicationContext(), WriteActivity.class);
 
-                    Toast.makeText(getApplicationContext(), select_date, Toast.LENGTH_LONG).show();
 
-                    //intent.putExtra("date", select_date);
             }
 
             CalendarSetting(cal);
@@ -90,11 +95,12 @@ public class MainActivity extends AppCompatActivity {
     protected void RecyclerViewCreate() {
         // Recycler Calendar 생성
         androidx.recyclerview.widget.RecyclerView calendarView = findViewById(R.id.rv_calendar);
-        CalendarAdapter calendarAdapter = new CalendarAdapter(getApplicationContext(), StorageCalendar);
+        CalendarAdapter calendarAdapter = new CalendarAdapter(this, StorageCalendar,this);
 
         GridLayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 7);
         calendarView.setLayoutManager(layoutManager);
         calendarView.setAdapter(calendarAdapter);
+
     }
 
     protected void CalendarSetting(GregorianCalendar cal) {
@@ -157,5 +163,12 @@ public class MainActivity extends AppCompatActivity {
         RecyclerViewCreate();
     }
 
+
+    @Override
+    public void onItemSelected(View view, ArrayList<Date> date, int position) {
+
+        select_date = date.get(position).date_format;
+        Toast.makeText(getApplicationContext(), select_date, Toast.LENGTH_LONG).show();
+    }
 
 }
