@@ -10,4 +10,18 @@
 
     <color name="blue">#0070ce</color>
     <color name="red">#dc143c</color>
+
+    <color name="light_gray">#d3d3d3</color>
+    <color name="gray">#bdbebd</color>
+    <color name="dark_gray">#949494</color>
+
+    <color name="yellow">#FFF9DE</color>
+    <color name="light_green">#C9D6BD</color>
+    <color name="green">#96B3A3</color>
+    <color name="dark_green">#6A8F8B</color>
+    <color name="turquoise">#486B73</color>
+    <color name="indigo">#2F4858</color>
+
+    <drawable name="bg_white">#ffffff</drawable>
+    <drawable name="bg_gray">#bdbebd</drawable>
 </resources>

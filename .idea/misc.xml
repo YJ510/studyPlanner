@@ -3,8 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/2023_1/StudyPlanner/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
-        <entry key="..\:/2023_1/StudyPlanner/app/src/main/res/layout/item_calender.xml" value="0.22826086956521738" />
+        <entry key="..\:/2023_1/StudyPlanner/app/src/main/res/drawable/bg_gray.xml" value="0.1" />
+        <entry key="..\:/2023_1/StudyPlanner/app/src/main/res/drawable/select_date.xml" value="0.1535" />
+        <entry key="..\:/2023_1/StudyPlanner/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/2023_1/StudyPlanner/app/src/main/res/layout/activity_write.xml" value="0.1" />
+        <entry key="..\:/2023_1/StudyPlanner/app/src/main/res/layout/item_calender.xml" value="0.1" />
       </map>
     </option>
   </component>
