@@ -56,7 +56,12 @@ public class SqliteHelper extends SQLiteOpenHelper {
     public void UpdateData(String title, String _class, String date, String content, int complete, int _id){
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("UPDATE TodoList SET title='"+title+"', _class='"+_class+"', content='"+content +"', date='" +
-                "date', complete='"+complete+"'"+ "WHERE id='"+_id+"';");
+                date+"', complete='"+complete+"'"+ "WHERE id='"+_id+"';");
+    }
+
+    public void change_completed(int complete, int _id){
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("UPDATE TodoList SET complete='"+complete+"'"+ "WHERE id='"+_id+"';");
     }
 
     public void DeleteData(int _id){

@@ -18,7 +18,7 @@ public class TodoListAdapter extends BaseAdapter {
     private ArrayList<TodoItemInfo> m_itemInfos = new ArrayList<TodoItemInfo>();
     private TextView title, content;
     private CheckBox checkBox;
-    private onItemSelectedInterface mListenr;
+    private  SqliteHelper m_DBHelper;
 
     public TodoListAdapter() {
     }
@@ -76,7 +76,19 @@ public class TodoListAdapter extends BaseAdapter {
         checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(), Integer.toString(m_itemInfos.get(pos).getId()), Toast.LENGTH_LONG).show();
+                //Toast.makeText(v.getContext(), Integer.toString(m_itemInfos.get(pos).getId()), Toast.LENGTH_LONG).show();
+                String DATABASE_NAME = "study_record.db";
+                int DATABASE_VERSION = 2;
+                m_DBHelper= new SqliteHelper(context, DATABASE_NAME,null,DATABASE_VERSION);
+
+                if(checkBox.isChecked()){
+                    Toast.makeText(v.getContext(), "선택", Toast.LENGTH_SHORT).show();
+                    m_DBHelper.change_completed(1,m_itemInfos.get(pos).getId());
+                }else {
+                    Toast.makeText(v.getContext(), "비선택", Toast.LENGTH_SHORT).show();
+                    m_DBHelper.change_completed(0,m_itemInfos.get(pos).getId());
+                }
+
             }
         });
 
