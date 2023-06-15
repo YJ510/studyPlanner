@@ -198,7 +198,6 @@ public class MainActivity extends AppCompatActivity implements onItemSelectedInt
         ArrayList<TodoItemInfo> temp = new ArrayList<>();
 
 
-
         SqliteHelper m_DBHelper = new SqliteHelper(getApplicationContext(), DATABASE_NAME,null,DATABASE_VERSION);
         SQLiteDatabase db = m_DBHelper.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM TodoList WHERE date = '"+select_date+"';",null);
@@ -227,17 +226,8 @@ public class MainActivity extends AppCompatActivity implements onItemSelectedInt
         cursor.close();
         todo_adapter.notifyDataSetChanged();
 
-        todolist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //Intent intent = new Intent(getApplicationContext(), ContentActivity.class);
-                //intent.putExtra("id", Integer.toString(temp.get(position).id));
-                //startActivity(intent);
 
-            }
-        });
 
     }
-
 
 }

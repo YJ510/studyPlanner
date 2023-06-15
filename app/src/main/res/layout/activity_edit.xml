@@ -13,7 +13,7 @@
         android:background="@color/yellow"
         android:layout_marginBottom="20dp">
         <TextView
-            android:text ="일정 확인"
+            android:text ="일정 수정"
             android:textSize ="20sp"
             android:textStyle ="bold"
             android:layout_width="match_parent"
@@ -48,8 +48,8 @@
                     android:layout_margin="10dp"
                     />
 
-                <TextView
-                    android:id="@+id/content_title"
+                <EditText
+                    android:id="@+id/edit_title"
                     android:textSize="20sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -70,7 +70,7 @@
                     />
 
                 <TextView
-                    android:id="@+id/content_writeDate"
+                    android:id="@+id/edit_writeDate"
                     android:text="날짜 "
                     android:textSize="20sp"
                     android:gravity="center"
@@ -78,6 +78,13 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="5"
                     android:layout_margin="10dp"/>
+
+                <Button
+                    android:id="@+id/btn_newDate"
+                    android:text="날짜 선택"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"/>
             </TableRow>
             <TableRow>
                 <TextView
@@ -90,22 +97,41 @@
                     android:gravity="center"
                     android:layout_margin="10dp"/>
 
-                <TextView
-                    android:id="@+id/content_state"
-                    android:text="진행도"
-                    android:textSize="20sp"
-                    android:textColor="@color/indigo"
+                <RadioGroup
+                    android:id="@+id/edit_radio_state_group"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="5"
-
+                    android:orientation="horizontal"
                     android:gravity="center"
-                    android:layout_margin="10dp"/>
+                    >
+
+                    <RadioButton
+                        android:id="@+id/edit_radio_state_ready"
+                        android:text="준비중"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_marginRight="20dp"
+                        android:checked="true"
+                        />
+
+
+                    <RadioButton
+                        android:id="@+id/edit_radio_state_complete"
+                        android:text="완료"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_marginLeft="20dp"
+                        />
+
+                </RadioGroup>
             </TableRow>
             <TableRow>
                 <TextView
                     android:text="카테고리"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:textColor="@color/indigo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -114,16 +140,21 @@
                     android:layout_margin="10dp"/>
 
 
-                <TextView
-                    android:id="@+id/content_class"
-                    android:text="카테고리"
-                    android:textSize="20sp"
-                    android:textColor="@color/indigo"
+                <Spinner
+                    android:id="@+id/edit_spin_class"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="5"
                     android:gravity="center"
-                    android:layout_margin="10dp"/>
+                    android:layout_marginTop="10dp"/>
+
+                <Button
+                    android:id="@+id/edit_btn_newClass"
+                    android:text="추가"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_margin="10dp" />
             </TableRow>
             <TableRow>
                 <TextView
@@ -136,8 +167,8 @@
                     android:gravity="center"
                     android:layout_margin="10dp"/>
 
-                <TextView
-                    android:id="@+id/content_content"
+                <EditText
+                    android:id="@+id/edit_content"
                     android:textSize="20sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -154,23 +185,15 @@
             android:gravity="right"
             android:layout_marginRight="20dp">
             <Button
-                android:id="@+id/btn_edit"
-                android:text="수정"
+                android:id="@+id/btn_edit_update"
+                android:text="수정하기"
                 android:textColor="@color/white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_gravity="right"
                 android:background="@color/indigo" />
-            <Button
-                android:id="@+id/btn_delete"
-                android:text="삭제"
-                android:textColor="@color/white"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_gravity="right"
-                android:background="@color/indigo" />
+
         </LinearLayout>
 
     </LinearLayout>

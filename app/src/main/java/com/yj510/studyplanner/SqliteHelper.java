@@ -53,4 +53,45 @@ public class SqliteHelper extends SQLiteOpenHelper {
                 + "VALUES ("+ "'"+title+"','"+_class+"','"+date+"','"+content+"','" + complete+ "');");
     }
 
+    public void UpdateData(String title, String _class, String date, String content, int complete, int _id){
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("UPDATE TodoList SET title='"+title+"', _class='"+_class+"', content='"+content +"', date='" +
+                "date', complete='"+complete+"'"+ "WHERE id='"+_id+"';");
+    }
+
+    public void DeleteData(int _id){
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("DELETE FROM TodoList WHERE id ='"+_id+"';");
+    }
+
+    public ArrayList<TodoItemInfo> getTodoListContentData(int _id){
+        ArrayList<TodoItemInfo> temp = new ArrayList<>();
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM TodoList WHERE id = '"+_id+"';",null);
+        //cursor.moveToFirst();
+
+        if (cursor.getCount() > 0){
+            while( cursor.moveToNext()) {
+                int idx;
+                idx = cursor.getColumnIndex("id");
+                int id = cursor.getInt(idx);
+                idx = cursor.getColumnIndex("title");
+                String title = cursor.getString(idx);
+                idx = cursor.getColumnIndex("_class");
+                String _class = cursor.getString(idx);
+                idx = cursor.getColumnIndex("date");
+                String date = cursor.getString(idx);
+                idx = cursor.getColumnIndex("content");
+                String content = cursor.getString(idx);
+                idx = cursor.getColumnIndex("complete");
+                int complete = cursor.getInt(idx);
+                temp.add(new TodoItemInfo(id, title, date, _class, content, complete));
+
+            }
+
+        }
+        cursor.close();
+        return temp;
+    }
+
 }
