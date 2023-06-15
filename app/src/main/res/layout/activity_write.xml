@@ -1,9 +1,213 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".WriteActivity">
+    tools:context=".WriteActivity"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@color/yellow">
+        <TextView
+            android:text ="일정 등록"
+            android:textSize ="20sp"
+            android:textStyle ="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center"
+            />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints"
+        android:orientation="vertical"
+        android:layout_margin="10dp"
+        android:padding="20dp"
+        android:layout_gravity="center"
+        android:gravity="center">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="10"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:text=" 제목 "
+                android:textSize="15sp"
+                android:textColor="@color/indigo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                />
+
+            <EditText
+                android:id="@+id/et_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_weight="9"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="10"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:text="날짜 "
+                android:textSize="15sp"
+                android:textColor="@color/indigo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                />
+
+            <TextView
+                android:id="@+id/tv_writeDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="9"/>
+
+            <Button
+                android:id="@+id/btn_newDate"
+                android:text="날짜 선택"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_weight="10">
+            <TextView
+                android:text="진행도"
+                android:textSize="15sp"
+                android:textColor="@color/indigo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"/>
+
+
+           <RadioGroup
+               android:id="@+id/radio_state_group"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_weight="9"
+               android:orientation="horizontal"
+               android:gravity="center"
+              >
+
+               <RadioButton
+                   android:id="@+id/radio_state_ready"
+                   android:text="준비중"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:gravity="center"
+                   android:layout_marginRight="20dp"
+                   android:checked="true"
+                 />
+
+
+               <RadioButton
+                   android:id="@+id/radio_state_complete"
+                   android:text="완료"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:gravity="center"
+                   android:layout_marginLeft="20dp"
+                   />
+
+           </RadioGroup>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_weight="10">
+            <TextView
+                android:text="카테고리"
+                android:textSize="15sp"
+                android:textColor="@color/indigo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"/>
+
+
+            <Spinner
+                android:id="@+id/spin_class"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="9" />
+
+            <Button
+                android:id="@+id/btn_newClass"
+                android:text="추카"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_weight="10">
+            <TextView
+                android:text=" 메모 "
+                android:textSize="15sp"
+                android:textColor="@color/indigo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"/>
+
+            <EditText
+                android:id="@+id/et_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="9"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_margin="10dp"
+            android:layout_marginTop="20dp">
+
+            <Button
+                android:id="@+id/btn_insert"
+                android:text="입력"
+                android:textColor="@color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@color/indigo"
+                >
+
+            </Button>
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

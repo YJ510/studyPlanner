@@ -4,7 +4,6 @@ import static android.service.controls.ControlsProviderService.TAG;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,7 +22,9 @@ public class MainActivity extends AppCompatActivity implements onItemSelectedInt
 
     private ArrayList<Date> StorageCalendar = new ArrayList<>();
     GregorianCalendar cal; // 현재날짜
+    GregorianCalendar today;
     String select_date;
+    TextView Tv_date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,15 +32,15 @@ public class MainActivity extends AppCompatActivity implements onItemSelectedInt
         setContentView(R.layout.activity_main);
 
         init();
-        Intent intent = getIntent();
-        select_date = intent.getStringExtra("select_date");
-        //Toast.makeText(getApplicationContext(), select_date, Toast.LENGTH_LONG).show();
 
 
     }
 
     protected void init() {
-
+        today = new GregorianCalendar();
+        select_date = Integer.toString(today.get(Calendar.YEAR)) + "/"
+                + Integer.toString(today.get(Calendar.MONTH)+1) + "/"
+                + Integer.toString(today.get(Calendar.DATE));
 
         // ImageButton 등록
         ImageButton Btnprev, Btnnext;
@@ -48,6 +49,8 @@ public class MainActivity extends AppCompatActivity implements onItemSelectedInt
         Btnprev = findViewById(R.id.btn_prev);
         Btnnext = findViewById(R.id.btn_next);
         BtnWrite = findViewById(R.id.btn_write);
+        Tv_date = findViewById(R.id.tv_date);
+        Tv_date.setText(select_date);
 
         Btnprev.setOnClickListener(BtnClickEvent);
         Btnnext.setOnClickListener(BtnClickEvent);
@@ -78,9 +81,10 @@ public class MainActivity extends AppCompatActivity implements onItemSelectedInt
                     break;
 
                 case R.id.btn_write:
-                    //Intent intent = new Intent(getApplicationContext(), WriteActivity.class);
-
-
+                   //Toast.makeText(getApplicationContext(), select_date, Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(getApplicationContext(), WriteActivity.class);
+                    intent.putExtra("date", select_date);
+                    startActivity(intent);
             }
 
             CalendarSetting(cal);
@@ -122,8 +126,8 @@ public class MainActivity extends AppCompatActivity implements onItemSelectedInt
         int max =  calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
         int prev_max = prev_calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
 
-        Log.d("date", Integer.toString(
-                cal.get(Calendar.YEAR))+ "/" +cal.get(Calendar.MONTH) + "/"+ cal.get(Calendar.DATE));
+        Log.d("TAG", Integer.toString(
+                cal.get(Calendar.YEAR))+ "/" +Integer.toString(cal.get(Calendar.MONTH)+1) + "/"+ cal.get(Calendar.DATE));
 
         int sunday;
         sunday = date - w+1;
@@ -169,6 +173,8 @@ public class MainActivity extends AppCompatActivity implements onItemSelectedInt
 
         select_date = date.get(position).date_format;
         Toast.makeText(getApplicationContext(), select_date, Toast.LENGTH_LONG).show();
+        Tv_date.setText(select_date);
     }
+
 
 }
