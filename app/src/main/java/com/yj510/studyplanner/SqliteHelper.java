@@ -1,6 +1,8 @@
 package com.yj510.studyplanner;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -9,6 +11,8 @@ import android.os.Build;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+
+import java.util.ArrayList;
 
 public class SqliteHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "study_record.db";
@@ -29,7 +33,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE IF NOT EXISTS TodoList (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, " +
+        db.execSQL("CREATE TABLE TodoList (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, " +
                 "_class TEXT NOT NULL, date TEXT NOT NULL, content TEXT, complete INTEGER NOT NULL);");
 
         //db.execSQL("CREATE TABLE IF NOT EXISTS classList (name String PRIMARY KEY AUTOINCREMENT, cycle TEXT , color TEXT);");
@@ -48,4 +52,5 @@ public class SqliteHelper extends SQLiteOpenHelper {
         db.execSQL("INSERT INTO TodoList (title, _class, date, content, complete) "
                 + "VALUES ("+ "'"+title+"','"+_class+"','"+date+"','"+content+"','" + complete+ "');");
     }
+
 }

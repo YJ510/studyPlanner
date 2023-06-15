@@ -6,11 +6,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,10 +25,15 @@ import java.util.GregorianCalendar;
 public class MainActivity extends AppCompatActivity implements onItemSelectedInterface {
 
     private ArrayList<Date> StorageCalendar = new ArrayList<>();
+    private ArrayList<TodoItemInfo> StorageList = new ArrayList<>();
     GregorianCalendar cal; // 현재날짜
     GregorianCalendar today;
     String select_date;
     TextView Tv_date;
+
+
+    private static final String DATABASE_NAME = "study_record.db";
+    private static final int DATABASE_VERSION = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements onItemSelectedInt
     }
 
     protected void init() {
+
         today = new GregorianCalendar();
         select_date = Integer.toString(today.get(Calendar.YEAR)) + "/"
                 + Integer.toString(today.get(Calendar.MONTH)+1) + "/"
@@ -61,8 +71,7 @@ public class MainActivity extends AppCompatActivity implements onItemSelectedInt
         cal = new GregorianCalendar();
         CalendarSetting(cal);
         RecyclerViewCreate();
-
-
+        setListview(select_date);
 
     }
 
@@ -88,6 +97,7 @@ public class MainActivity extends AppCompatActivity implements onItemSelectedInt
             }
 
             CalendarSetting(cal);
+
 
             TextView timeTextView = findViewById(R.id.tv_calDate);
             timeTextView.setText(cal.get(Calendar.YEAR) + "년 " + (cal.get(Calendar.MONTH) + 1) + "월");
@@ -165,6 +175,7 @@ public class MainActivity extends AppCompatActivity implements onItemSelectedInt
 
 
         RecyclerViewCreate();
+
     }
 
 
@@ -174,6 +185,58 @@ public class MainActivity extends AppCompatActivity implements onItemSelectedInt
         select_date = date.get(position).date_format;
         Toast.makeText(getApplicationContext(), select_date, Toast.LENGTH_LONG).show();
         Tv_date.setText(select_date);
+        setListview(select_date);
+        Log.d("TAG",select_date);
+    }
+
+
+    void setListview(String select_date){
+
+        ListView todolist = findViewById(R.id.lv_task_plan);
+        TodoListAdapter todo_adapter = new TodoListAdapter();
+        todolist.setAdapter(todo_adapter);
+        ArrayList<TodoItemInfo> temp = new ArrayList<>();
+
+
+
+        SqliteHelper m_DBHelper = new SqliteHelper(getApplicationContext(), DATABASE_NAME,null,DATABASE_VERSION);
+        SQLiteDatabase db = m_DBHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM TodoList WHERE date = '"+select_date+"';",null);
+        //cursor.moveToFirst();
+
+        if (cursor.getCount() > 0){
+            while( cursor.moveToNext()){
+                int idx;
+                idx = cursor.getColumnIndex("id");
+                int id = cursor.getInt(idx);
+                idx = cursor.getColumnIndex("title");
+                String title = cursor.getString(idx);
+                idx = cursor.getColumnIndex("_class");
+                String _class = cursor.getString(idx);
+                idx = cursor.getColumnIndex("date");
+                String date = cursor.getString(idx);
+                idx = cursor.getColumnIndex("content");
+                String content = cursor.getString(idx);
+                idx = cursor.getColumnIndex("complete");
+                int complete = cursor.getInt(idx);
+                temp.add(new TodoItemInfo(id, title, date, _class, content, complete));
+
+               todo_adapter.addItem(id, title, date, _class, content, complete);  }
+
+        }
+        cursor.close();
+        todo_adapter.notifyDataSetChanged();
+
+        todolist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //Intent intent = new Intent(getApplicationContext(), ContentActivity.class);
+                //intent.putExtra("id", Integer.toString(temp.get(position).id));
+                //startActivity(intent);
+
+            }
+        });
+
     }
 
 
