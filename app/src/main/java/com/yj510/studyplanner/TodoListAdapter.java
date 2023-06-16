@@ -106,10 +106,11 @@ public class TodoListAdapter extends BaseAdapter {
                 int DATABASE_VERSION = 2;
                 m_DBHelper= new SqliteHelper(context, DATABASE_NAME,null,DATABASE_VERSION);
 
-                if(checkBox.isChecked()){
-                    Toast.makeText(v.getContext(), "선택", Toast.LENGTH_SHORT).show();
-                    m_DBHelper.change_completed(1,m_itemInfos.get(pos).getId());
-                }else {
+                if(checkBox.isChecked()==true){
+                        Toast.makeText(v.getContext(), "선택", Toast.LENGTH_SHORT).show();
+                        m_DBHelper.change_completed(1,m_itemInfos.get(pos).getId());
+
+                      } else {
                     Toast.makeText(v.getContext(), "비선택", Toast.LENGTH_SHORT).show();
                     m_DBHelper.change_completed(0,m_itemInfos.get(pos).getId());
                 }
