@@ -4,13 +4,17 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/2023_1/StudyPlanner/app/src/main/res/drawable/bg_gray.xml" value="0.1" />
+        <entry key="..\:/2023_1/StudyPlanner/app/src/main/res/drawable/ic_baseline_brightness_1_24.xml" value="0.141" />
         <entry key="..\:/2023_1/StudyPlanner/app/src/main/res/drawable/select_date.xml" value="0.1535" />
         <entry key="..\:/2023_1/StudyPlanner/app/src/main/res/layout/activity_content.xml" value="0.1" />
-        <entry key="..\:/2023_1/StudyPlanner/app/src/main/res/layout/activity_edit.xml" value="0.2" />
+        <entry key="..\:/2023_1/StudyPlanner/app/src/main/res/layout/activity_custom_dialog.xml" value="0.264" />
+        <entry key="..\:/2023_1/StudyPlanner/app/src/main/res/layout/activity_edit.xml" value="0.1" />
         <entry key="..\:/2023_1/StudyPlanner/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/2023_1/StudyPlanner/app/src/main/res/layout/activity_make_class.xml" value="0.1" />
         <entry key="..\:/2023_1/StudyPlanner/app/src/main/res/layout/activity_write.xml" value="0.1" />
+        <entry key="..\:/2023_1/StudyPlanner/app/src/main/res/layout/custom_dialog.xml" value="0.1" />
         <entry key="..\:/2023_1/StudyPlanner/app/src/main/res/layout/item_calender.xml" value="0.1" />
-        <entry key="..\:/2023_1/StudyPlanner/app/src/main/res/layout/todolist_item.xml" value="0.17435897435897435" />
+        <entry key="..\:/2023_1/StudyPlanner/app/src/main/res/layout/todolist_item.xml" value="0.264" />
       </map>
     </option>
   </component>

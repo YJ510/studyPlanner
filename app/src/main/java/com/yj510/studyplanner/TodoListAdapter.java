@@ -2,11 +2,13 @@ package com.yj510.studyplanner;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,8 +19,11 @@ public class TodoListAdapter extends BaseAdapter {
 
     private ArrayList<TodoItemInfo> m_itemInfos = new ArrayList<TodoItemInfo>();
     private TextView title, content;
+    private ImageView image;
     private CheckBox checkBox;
     private  SqliteHelper m_DBHelper;
+    private  ClassDBHelper m_ClassDBHelper;
+
 
     public TodoListAdapter() {
     }
@@ -43,6 +48,8 @@ public class TodoListAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         final int pos = position;
         final Context context = parent.getContext();
+        m_ClassDBHelper=new ClassDBHelper(context, "class_record.db", null, 2);
+
 
         if(convertView == null){
             LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -52,9 +59,16 @@ public class TodoListAdapter extends BaseAdapter {
         title = convertView.findViewById(R.id.todolist_title);
         content =  convertView.findViewById(R.id.todolist_content);
         checkBox = convertView.findViewById(R.id.checkbox);
+        image = convertView.findViewById(R.id.circle);
 
         title.setText(m_itemInfos.get(pos).title);
         content.setText(m_itemInfos.get(pos).content);
+
+        String className = m_itemInfos.get(pos)._class;
+
+        String hex_color = m_ClassDBHelper.getColor(className);
+        if (hex_color != null) { image.setColorFilter(Color.parseColor(hex_color));}
+        else image.setColorFilter(Color.parseColor("#000000"));
 
         if (m_itemInfos.get(pos).state==1){
             checkBox.setChecked(true);
