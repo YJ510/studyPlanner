@@ -2,17 +2,20 @@ package com.yj510.studyplanner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class EditActivity extends AppCompatActivity {
     private ArrayList<TodoItemInfo> mitemInfos;
@@ -20,7 +23,7 @@ public class EditActivity extends AppCompatActivity {
     private  SqliteHelper m_DBHelper;
 
     private TextView title, content, date;
-    private Button btn_update;
+    private Button btn_update, btn_newDate;
     private RadioGroup state;
     private Spinner _class;
     ArrayList<String> classList;
@@ -52,6 +55,7 @@ public class EditActivity extends AppCompatActivity {
         state = findViewById(R.id.edit_radio_state_group);
         content = findViewById(R.id.edit_content);
         btn_update = findViewById(R.id.btn_edit_update);
+        btn_newDate = findViewById(R.id.btn_edit_newDate);
 
         classList = new ArrayList<>();
         classList.add("기본"); // 메뉴 데이터 삽입
@@ -60,25 +64,50 @@ public class EditActivity extends AppCompatActivity {
 
         setItemInfos();
 
-        btn_update.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(state.getCheckedRadioButtonId()==R.id.edit_radio_state_complete){
-                    state_check =1;
-                } else { state_check = 0; }
+        btn_update.setOnClickListener(mBtnClickLisnter);
+        btn_newDate.setOnClickListener(mBtnClickLisnter);
+    }
 
-                //Toast.makeText(getApplicationContext(),Integer.toString(state_check),Toast.LENGTH_SHORT).show();
+    View.OnClickListener mBtnClickLisnter = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()){
+                case R.id.btn_edit_newDate:
+                    selectNewDate(); break;
 
-                m_DBHelper.UpdateData(title.getText().toString(), _class.getSelectedItem().toString(), date.getText().toString(),
-                        content.getText().toString(), state_check,Integer.parseInt(mid));
+                case R.id.btn_edit_update:
+                    if(state.getCheckedRadioButtonId()==R.id.edit_radio_state_complete){
+                        state_check =1;
+                    } else { state_check = 0; }
 
-                Intent intent = new Intent(getApplicationContext(), ContentActivity.class);
-                intent.putExtra("id",mid);
-                startActivity(intent);
+                    //Toast.makeText(getApplicationContext(),Integer.toString(state_check),Toast.LENGTH_SHORT).show();
 
+                    m_DBHelper.UpdateData(title.getText().toString(), _class.getSelectedItem().toString(), date.getText().toString(),
+                            content.getText().toString(), state_check,Integer.parseInt(mid));
+
+                    Intent intent = new Intent(getApplicationContext(), ContentActivity.class);
+                    intent.putExtra("id",mid);
+                    startActivity(intent);
+
+                    break;
             }
+        }
+    };
 
-        });
+    private void selectNewDate(){
+        Calendar myCalendar = Calendar.getInstance();
+        int year = myCalendar.get(Calendar.YEAR);
+        int month = myCalendar.get(Calendar.MONTH);
+        int day = myCalendar.get(Calendar.DATE);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener(){
+
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                date.setText(year +"/" +(month+1)+ "/"+dayOfMonth);
+            }
+        },year, month, day);
+        datePickerDialog.show();
     }
 
     private void setItemInfos(){

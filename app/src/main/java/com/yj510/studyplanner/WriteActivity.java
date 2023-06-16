@@ -2,12 +2,14 @@ package com.yj510.studyplanner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -16,6 +18,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class WriteActivity extends AppCompatActivity {
     String date;
@@ -27,6 +31,7 @@ public class WriteActivity extends AppCompatActivity {
     TextView tv_write_date;
     RadioGroup rd_state;
     Spinner spinner;
+    DatePickerDialog.OnDateSetListener datePickerDialog;
     //RadioButton Btn_ready, Btn_complete;
 
     private static final String DATABASE_NAME = "study_record.db";
@@ -99,7 +104,7 @@ public class WriteActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             switch (v.getId()){
-                case R.id.btn_newDate: break;
+                case R.id.btn_newDate:  selectNewDate(); break;
 
                 case R.id.btn_insert:
                     insertData();
@@ -114,7 +119,23 @@ public class WriteActivity extends AppCompatActivity {
         }
     };
 
-    void insertData(){
+    private void selectNewDate(){
+        Calendar myCalendar = Calendar.getInstance();
+        int year = myCalendar.get(Calendar.YEAR);
+        int month = myCalendar.get(Calendar.MONTH);
+        int day = myCalendar.get(Calendar.DATE);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener(){
+
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                tv_write_date.setText(year +"/" + (month+1) + "/"+dayOfMonth);
+            }
+        },year, month, day);
+        datePickerDialog.show();
+    }
+
+    private void insertData(){
 
         String title = et_title.getText().toString();
         String date = tv_write_date.getText().toString();
