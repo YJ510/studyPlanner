@@ -21,9 +21,10 @@ public class EditActivity extends AppCompatActivity {
     private ArrayList<TodoItemInfo> mitemInfos;
     private String mid;
     private  SqliteHelper m_DBHelper;
+    private  ClassDBHelper classDBHelper;
 
     private TextView title, content, date;
-    private Button btn_update, btn_newDate;
+    private Button btn_update, btn_newDate, btn_newClass;
     private RadioGroup state;
     private Spinner _class;
     ArrayList<String> classList;
@@ -35,6 +36,7 @@ public class EditActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
+        classDBHelper = new ClassDBHelper(this,"class_record.db",null,2);
 
         Intent intent = getIntent();
         mid=intent.getStringExtra("id");
@@ -56,22 +58,36 @@ public class EditActivity extends AppCompatActivity {
         content = findViewById(R.id.edit_content);
         btn_update = findViewById(R.id.btn_edit_update);
         btn_newDate = findViewById(R.id.btn_edit_newDate);
+        btn_newClass = findViewById(R.id.edit_btn_newClass);
 
+        //카테고리 임시 데이터
         classList = new ArrayList<>();
+        ArrayList<String> temp = new ArrayList<>();
+        temp = classDBHelper.getAllClassNameData();
         classList.add("기본"); // 메뉴 데이터 삽입
+        for(int i=0; i<temp.size();i++) {
+            classList.add(temp.get(i));
+        }
+
         arrayAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, classList);
         _class.setAdapter(arrayAdapter);
+        arrayAdapter.notifyDataSetChanged();
 
         setItemInfos();
 
         btn_update.setOnClickListener(mBtnClickLisnter);
         btn_newDate.setOnClickListener(mBtnClickLisnter);
+        btn_newClass.setOnClickListener(mBtnClickLisnter);
     }
 
     View.OnClickListener mBtnClickLisnter = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             switch (v.getId()){
+                case R.id.edit_btn_newClass:
+                    Intent intent_nc = new Intent(getApplicationContext(),MakeClassActivity.class);
+                    startActivity(intent_nc);
+
                 case R.id.btn_edit_newDate:
                     selectNewDate(); break;
 

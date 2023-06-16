@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.StudyPlanner">
         <activity
+            android:name=".ManageClassActivity"
+            android:exported="false" />
+        <activity
             android:name=".MakeClassActivity"
             android:exported="false" />
         <activity

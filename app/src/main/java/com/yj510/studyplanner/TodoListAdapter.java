@@ -1,5 +1,6 @@
 package com.yj510.studyplanner;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -84,6 +85,16 @@ public class TodoListAdapter extends BaseAdapter {
                 Intent intent = new Intent(v.getContext(), ContentActivity.class);
                 intent.putExtra("id", Integer.toString(m_itemInfos.get(pos).getId()));
                 v.getContext().startActivity(intent);
+            }
+
+        });
+
+        image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent_manage = new Intent(v.getContext(), ManageClassActivity.class);
+                intent_manage.putExtra("className", className);
+                v.getContext().startActivity(intent_manage);
             }
         });
 

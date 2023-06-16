@@ -133,6 +133,7 @@ public class WriteActivity extends AppCompatActivity {
 
                 case R.id.btn_newClass:
                     Intent intent_nc = new Intent(getApplicationContext(),MakeClassActivity.class);
+                    intent_nc.putExtra("mode","insert");
                     startActivity(intent_nc);
 
                     break;

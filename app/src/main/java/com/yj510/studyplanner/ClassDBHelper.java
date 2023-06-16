@@ -52,7 +52,7 @@ public class ClassDBHelper extends SQLiteOpenHelper {
 
     public void UpdateClass(String name, String cycle, String hex_color){
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("UPDATE classList SET cycle='"+cycle+"', hex_color='"+hex_color+"'"+ "WHERE name='"+name+"';");
+        db.execSQL("UPDATE classList SET cycle='" + cycle+"', hex_color='"+ hex_color+"' WHERE name='"+name+"';");
     }
 
     public void DeleteClass(String name){
@@ -69,11 +69,17 @@ public class ClassDBHelper extends SQLiteOpenHelper {
         if (cursor.getCount() > 0){
             while( cursor.moveToNext()) {
                 int idx;
-                String cycle = cursor.getString(1);
-                String hex_color = cursor.getString(2);
+                idx = cursor.getColumnIndex("name");
+                String _name = cursor.getString(idx);
+                idx = cursor.getColumnIndex("cycle");
+                String cycle = cursor.getString(idx);
+                idx = cursor.getColumnIndex("hex_color");
+                String hex_color = cursor.getString(idx);
 
-                temp.add(new ClassInfo(name, cycle, hex_color));
+                temp.add(new ClassInfo(_name, cycle, hex_color));
             }
+        }else {
+            temp.add(new ClassInfo("기본", "0", "#000000"));
         }
 
         cursor.close();

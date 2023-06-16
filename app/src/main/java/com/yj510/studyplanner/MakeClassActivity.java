@@ -2,6 +2,7 @@ package com.yj510.studyplanner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -35,7 +36,7 @@ public class MakeClassActivity extends AppCompatActivity {
         btn_ok= findViewById(R.id.btn_dlg_ok);
         name = findViewById(R.id.dlg_classTitle);
         cycle = findViewById(R.id.dlg_rwcycle);
-        mDBHelper.InsertClass("기본", "0", "#000000");
+        //mDBHelper.InsertClass("기본", "0", "#000000");
 
 
         btn_color.setOnClickListener(new View.OnClickListener() {
@@ -50,8 +51,10 @@ public class MakeClassActivity extends AppCompatActivity {
         btn_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mDBHelper.InsertClass(name.getText().toString(), cycle.getText().toString(), hexColor);
-            }
+                Intent intent = getIntent();
+
+                    mDBHelper.InsertClass(name.getText().toString(), cycle.getText().toString(), hexColor);
+                }
         });
     }
 
